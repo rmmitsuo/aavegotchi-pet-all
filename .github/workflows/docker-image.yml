@@ -1,18 +1,15 @@
-name: Docker Image CI
+name: Manual Pet
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: workflow_dispatch
 
 jobs:
-
-  build:
-
+  pet:
+    env:
+      PRIVATE_KEY: ${{ secrets.PrivateKey }}
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: petall.py
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - run: petall.py
